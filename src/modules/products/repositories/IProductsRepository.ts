@@ -1,11 +1,18 @@
 import { ICreateProductDTO } from "../interfaces/ICreateProductDTO";
-import { ISavedProductDocument } from "../interfaces/ISavedProductDocument";
+import { IFilters } from "../interfaces/IFilters";
+import {
+  ISavedProductDocument,
+  IUpdateProductDocument,
+} from "../interfaces/IProducts";
 
 interface IProductsRepository {
-  list(): Promise<ISavedProductDocument[] | undefined>;
+  list(filters: IFilters): Promise<ISavedProductDocument[] | undefined>;
   findById(id: string): Promise<ISavedProductDocument | undefined>;
   create(productData: ICreateProductDTO): Promise<void>;
-  update(id: string, productData: ISavedProductDocument): Promise<void>;
+  update(
+    id: string,
+    productData: IUpdateProductDocument | string
+  ): Promise<IUpdateProductDocument>;
   delete(id: string): Promise<void>;
 }
 

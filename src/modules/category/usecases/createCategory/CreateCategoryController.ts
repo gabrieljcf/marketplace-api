@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
-import { CreateProductsUseCase } from "./CreateProductsUseCase";
+import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 
-class CreateProductsController {
+class CreateCategoryController {
   public async handle(request: Request, response: Response): Promise<Response> {
     try {
-      const { name, price, category } = request.body;
-      const createProduct = container.resolve(CreateProductsUseCase);
-      await createProduct.execute({ name, price, category });
+      const { name } = request.body;
+      const createCategoryUseCase = container.resolve(CreateCategoryUseCase);
+      await createCategoryUseCase.execute(name);
       return response.status(201).send();
     } catch (error) {
       return response
@@ -18,4 +18,4 @@ class CreateProductsController {
   }
 }
 
-export { CreateProductsController };
+export { CreateCategoryController };

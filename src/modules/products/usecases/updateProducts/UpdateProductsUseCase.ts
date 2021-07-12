@@ -1,6 +1,8 @@
 import { inject, injectable } from "tsyringe";
 
-import { ISavedProductDocument } from "../../interfaces/ISavedProductDocument";
+import { AppError } from "../../../../errors/AppError";
+import { formatSearchText } from "../../../../shared/utils/formatSearchText";
+import { ISavedProductDocument } from "../../interfaces/IProducts";
 import { IProductsRepository } from "../../repositories/IProductsRepository";
 
 @injectable()
@@ -10,12 +12,15 @@ class UpdateProductsUseCase {
     private repository: IProductsRepository
   ) {}
 
-  public async execute(
-    id: string,
-    productData: ISavedProductDocument
-  ): Promise<void> {
+  public async execute(id: string, data: ISavedProductDocument): Promise<void> {
     const productExists = await this.repository.findById(id);
-    if (!productExists) throw new Error("Product not found");
+    if (!productExists) throw new AppError("Product not found", 404);
+
+    const nameSearch = formatSearchText(data.name);
+    const productData = {
+      ...data,
+      nameSearch,
+    };
 
     await this.repository.update(id, productData);
   }

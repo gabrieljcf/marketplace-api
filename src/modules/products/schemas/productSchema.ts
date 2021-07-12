@@ -12,7 +12,29 @@ const productSchema = new Schema({
     required: true,
     default: 0,
   },
+  category: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "category",
+    },
+  ],
+  images: [
+    {
+      type: String,
+    },
+  ],
+  nameSearch: {
+    type: String,
+  },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
   createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
     type: Date,
     default: Date.now,
   },

@@ -1,11 +1,17 @@
 import { ICreateProductDTO } from "../../interfaces/ICreateProductDTO";
-import { ISavedProductDocument } from "../../interfaces/ISavedProductDocument";
+import { IFilters } from "../../interfaces/IFilters";
+import {
+  ISavedProductDocument,
+  IUpdateProductDocument,
+} from "../../interfaces/IProducts";
 import { Product } from "../../models/Product";
 import { IProductsRepository } from "../IProductsRepository";
 
-class ProductRepository implements IProductsRepository {
-  public async list(): Promise<ISavedProductDocument[] | undefined> {
-    const products = await Product.find();
+class ProductsRepository implements IProductsRepository {
+  public async list(
+    filters: IFilters
+  ): Promise<ISavedProductDocument[] | undefined> {
+    const products = await Product.find(filters);
 
     return products;
   }
@@ -24,13 +30,20 @@ class ProductRepository implements IProductsRepository {
 
   public async update(
     id: string,
-    productData: ISavedProductDocument
-  ): Promise<void> {
-    await Product.findByIdAndUpdate(id, productData);
+    productData: IUpdateProductDocument
+  ): Promise<IUpdateProductDocument> {
+    const product = await Product.findByIdAndUpdate(
+      id,
+      {
+        $set: productData,
+      },
+      { new: true }
+    );
+    return product;
   }
 
   public async delete(id: string): Promise<void> {
     await Product.findByIdAndDelete(id);
   }
 }
-export { ProductRepository };
+export { ProductsRepository };

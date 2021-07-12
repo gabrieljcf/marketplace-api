@@ -6,6 +6,7 @@ import { DeleteProductController } from "../modules/products/usecases/deleteProd
 import { ImportProductsController } from "../modules/products/usecases/importProducts/ImportProductsController";
 import { ListProductController } from "../modules/products/usecases/listProduct/ListProductController";
 import { ListProductsController } from "../modules/products/usecases/listProducts/ListProductsController";
+import { UpdateManyProductsController } from "../modules/products/usecases/updateManyProducts/UpdateManyProductsController";
 import { UpdateProductsController } from "../modules/products/usecases/updateProducts/UpdateProductsController";
 
 const productRoutes = Router();
@@ -20,6 +21,7 @@ const createProductsController = new CreateProductsController();
 const importProductsController = new ImportProductsController();
 const updateProductsController = new UpdateProductsController();
 const deleteProductController = new DeleteProductController();
+const updateManyProductsController = new UpdateManyProductsController();
 
 productRoutes.get("/", listProductsController.handle);
 productRoutes.get("/:id", listProductController.handle);
@@ -31,5 +33,6 @@ productRoutes.post(
 );
 productRoutes.put("/:id", updateProductsController.handle);
 productRoutes.delete("/:id", deleteProductController.handle);
+productRoutes.patch("/many", updateManyProductsController.handle);
 
 export { productRoutes };

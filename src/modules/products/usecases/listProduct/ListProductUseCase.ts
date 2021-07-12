@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { ISavedProductDocument } from "../../interfaces/ISavedProductDocument";
+import { ISavedProductDocument } from "../../interfaces/IProducts";
 import { IProductsRepository } from "../../repositories/IProductsRepository";
 
 @injectable()

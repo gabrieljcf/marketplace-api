@@ -6,12 +6,17 @@ import { ListProductsUseCase } from "./ListProductsUseCase";
 class ListProductsController {
   public async handle(request: Request, response: Response): Promise<Response> {
     try {
-      const listProductsUseCase = container.resolve(ListProductsUseCase);
-      const products = await listProductsUseCase.execute();
+      const { isActive, name, category } = request.query;
 
+      const listProductsUseCase = container.resolve(ListProductsUseCase);
+      const products = await listProductsUseCase.execute({
+        isActive,
+        name,
+        category,
+      });
       return response.json(products);
     } catch (error) {
-      return response.status(400).json(error.message);
+      return response.status(400).json({ message: error.message });
     }
   }
 }
