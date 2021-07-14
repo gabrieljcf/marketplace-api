@@ -16,6 +16,20 @@ class CategoriesRepository implements ICategoriesRepository {
     const category = new Category({ name, nameSearch });
     await category.save();
   }
+
+  public async update(
+    id: string,
+    categoryData: ISaveCategoryDocument
+  ): Promise<ISaveCategoryDocument> {
+    const category = await Category.findByIdAndUpdate(
+      id,
+      {
+        $set: categoryData,
+      },
+      { new: true }
+    );
+    return category;
+  }
 }
 
 export { CategoriesRepository };
