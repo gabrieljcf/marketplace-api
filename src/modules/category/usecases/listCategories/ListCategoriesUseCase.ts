@@ -1,7 +1,15 @@
 import { inject, injectable } from "tsyringe";
 
+import { formatSearchText } from "../../../../shared/utils/formatSearchText";
 import { ISaveCategoryDocument } from "../../interfaces/ICategory";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
+
+interface IRequest {
+  isActive?: boolean | any;
+  name?: string | any;
+  page?: number;
+  limit?: number;
+}
 
 @injectable()
 class ListCategoriesUseCase {
@@ -10,8 +18,30 @@ class ListCategoriesUseCase {
     private categoriesRepository: ICategoriesRepository
   ) {}
 
-  public async execute(): Promise<ISaveCategoryDocument[] | undefined> {
-    const categories = await this.categoriesRepository.list();
+  public async execute({
+    isActive,
+    name,
+    page,
+    limit,
+  }: IRequest): Promise<ISaveCategoryDocument[] | undefined> {
+    const nameSearch = name ? formatSearchText(name) : null;
+    const filters = {
+      nameSearch,
+      isActive,
+    };
+
+    if (!isActive) delete filters.isActive;
+    if (!nameSearch) delete filters.nameSearch;
+
+    const limitPages = limit ? limit * 1 : 10;
+    const currentPage = page || 1;
+    const skip = limit * (page - 1);
+
+    const categories = await this.categoriesRepository.list(filters, {
+      limit: limitPages,
+      page: currentPage,
+      skip,
+    });
     return categories;
   }
 }

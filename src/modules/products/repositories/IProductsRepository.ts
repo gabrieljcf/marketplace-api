@@ -10,7 +10,7 @@ interface IProductsRepository {
   list(
     filters: IFilters,
     pagination: IPagination
-  ): Promise<ISavedProductDocument[] | undefined>;
+  ): Promise<ISavedProductDocument[] | []>;
   findById(id: string): Promise<ISavedProductDocument | undefined>;
   create(productData: ICreateProductDTO): Promise<void>;
   update(

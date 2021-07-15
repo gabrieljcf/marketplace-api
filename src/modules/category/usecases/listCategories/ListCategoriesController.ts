@@ -6,8 +6,15 @@ import { ListCategoriesUseCase } from "./ListCategoriesUseCase";
 class ListCategoriesController {
   public async handle(request: Request, response: Response): Promise<Response> {
     try {
+      const { isActive, name, page, limit } = request.query;
+
       const listCategoriesUseCase = container.resolve(ListCategoriesUseCase);
-      const categories = await listCategoriesUseCase.execute();
+      const categories = await listCategoriesUseCase.execute({
+        isActive,
+        name,
+        page: +page,
+        limit: +limit,
+      });
 
       return response.json(categories);
     } catch (error) {

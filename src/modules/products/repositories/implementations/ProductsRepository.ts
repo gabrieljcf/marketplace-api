@@ -12,18 +12,18 @@ class ProductsRepository implements IProductsRepository {
   public async list(
     filters: IFilters,
     { page, limit, skip }: IPagination
-  ): Promise<ISavedProductDocument[] | undefined> {
+  ): Promise<ISavedProductDocument[] | []> {
     const products = await Product.find(filters).limit(limit).skip(skip).exec();
     const count = await Product.find(filters).count();
     const totalPages = Math.ceil(count / limit);
 
-    const data = {
+    const productsData = {
       ...products,
       currentPage: page,
       totalPages,
     };
 
-    return data;
+    return productsData;
   }
 
   public async findById(

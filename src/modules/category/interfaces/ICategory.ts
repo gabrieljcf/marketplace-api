@@ -6,4 +6,9 @@ interface ISaveCategoryDocument {
   updatedAt?: Date;
 }
 
-export { ISaveCategoryDocument };
+interface ICategoryFilters {
+  nameSearch: string;
+  isActive: boolean;
+}
+
+export { ISaveCategoryDocument, ICategoryFilters };

@@ -1,8 +1,17 @@
-import { ISaveCategoryDocument } from "../interfaces/ICategory";
+import { IPagination } from "../../../shared/interfaces/IPagination";
+import {
+  ICategoryFilters,
+  ISaveCategoryDocument,
+} from "../interfaces/ICategory";
 
 interface ICategoriesRepository {
-  list(): Promise<ISaveCategoryDocument[] | undefined>;
+  list(
+    filters: ICategoryFilters,
+    pagination: IPagination
+  ): Promise<ISaveCategoryDocument[] | []>;
+
   create({ name, nameSearch }: ISaveCategoryDocument): Promise<void>;
+
   update(
     id: string,
     categoryData: ISaveCategoryDocument
