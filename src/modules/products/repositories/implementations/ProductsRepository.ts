@@ -1,6 +1,7 @@
 import { ICreateProductDTO } from "../../interfaces/ICreateProductDTO";
 import { IFilters } from "../../interfaces/IFilters";
 import {
+  IPagination,
   ISavedProductDocument,
   IUpdateProductDocument,
 } from "../../interfaces/IProducts";
@@ -9,11 +10,20 @@ import { IProductsRepository } from "../IProductsRepository";
 
 class ProductsRepository implements IProductsRepository {
   public async list(
-    filters: IFilters
+    filters: IFilters,
+    { page, limit, skip }: IPagination
   ): Promise<ISavedProductDocument[] | undefined> {
-    const products = await Product.find(filters);
+    const products = await Product.find(filters).limit(limit).skip(skip).exec();
+    const count = await Product.find(filters).count();
+    const totalPages = Math.ceil(count / limit);
 
-    return products;
+    const data = {
+      ...products,
+      currentPage: page,
+      totalPages,
+    };
+
+    return data;
   }
 
   public async findById(

@@ -8,6 +8,8 @@ interface IRequest {
   isActive?: boolean | any;
   name?: string | any;
   category?: string | any;
+  page: number;
+  limit: number;
 }
 
 @injectable()
@@ -21,6 +23,8 @@ class ListProductsUseCase {
     isActive,
     name,
     category,
+    page,
+    limit,
   }: IRequest): Promise<ISavedProductDocument[] | undefined> {
     const nameSearch = name ? formatSearchText(name) : null;
     const filters = {
@@ -32,7 +36,17 @@ class ListProductsUseCase {
     if (!isActive) delete filters.isActive;
     if (!nameSearch) delete filters.nameSearch;
     if (!category) delete filters.category;
-    const products = await this.productRepository.list(filters);
+
+    const limitPages = limit ? limit * 1 : 10;
+    const currentPage = page || 1;
+    const skip = limit * (page - 1);
+
+    const products = await this.productRepository.list(filters, {
+      page: currentPage,
+      limit: limitPages,
+      skip,
+    });
+
     return products;
   }
 }

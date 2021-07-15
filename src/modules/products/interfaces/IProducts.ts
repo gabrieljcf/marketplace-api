@@ -8,6 +8,8 @@ interface ISavedProductDocument {
   isActive?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
+  currentPage: number;
+  totalPages: number;
 }
 
 interface IUpdateProductDocument {
@@ -22,4 +24,10 @@ interface IUpdateProductDocument {
   updatedAt?: Date;
 }
 
-export { ISavedProductDocument, IUpdateProductDocument };
+interface IPagination {
+  page: number;
+  limit: number;
+  skip: number;
+}
+
+export { ISavedProductDocument, IUpdateProductDocument, IPagination };
