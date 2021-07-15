@@ -1,7 +1,7 @@
+import { IPagination } from "../../../shared/interfaces/IPagination";
 import { ICreateProductDTO } from "../interfaces/ICreateProductDTO";
 import { IFilters } from "../interfaces/IFilters";
 import {
-  IPagination,
   ISavedProductDocument,
   IUpdateProductDocument,
 } from "../interfaces/IProducts";

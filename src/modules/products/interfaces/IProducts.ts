@@ -24,10 +24,4 @@ interface IUpdateProductDocument {
   updatedAt?: Date;
 }
 
-interface IPagination {
-  page: number;
-  limit: number;
-  skip: number;
-}
-
-export { ISavedProductDocument, IUpdateProductDocument, IPagination };
+export { ISavedProductDocument, IUpdateProductDocument };
