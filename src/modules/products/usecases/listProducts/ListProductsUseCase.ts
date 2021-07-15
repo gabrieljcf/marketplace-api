@@ -37,9 +37,9 @@ class ListProductsUseCase {
     if (!nameSearch) delete filters.nameSearch;
     if (!category) delete filters.category;
 
-    const limitPages = limit ? limit * 1 : 10;
+    const limitPages = !isNaN(limit) ? limit * 1 : 10;
     const currentPage = page || 1;
-    const skip = limit * (page - 1);
+    const skip = (page - 1) * limitPages;
 
     const products = await this.productRepository.list(filters, {
       page: currentPage,

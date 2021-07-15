@@ -13,8 +13,37 @@ class ProductsRepository implements IProductsRepository {
     filters: IFilters,
     { page, limit, skip }: IPagination
   ): Promise<ISavedProductDocument[] | []> {
-    const products = await Product.find(filters).limit(limit).skip(skip).exec();
-    const count = await Product.find(filters).count();
+    const products = await Product.aggregate([
+      {
+        $match: {
+          ...filters,
+        },
+      },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category",
+          foreignField: "_id",
+          as: "category",
+        },
+      },
+      { $unwind: { path: "$category", preserveNullAndEmptyArrays: true } },
+      {
+        $project: {
+          name: true,
+          images: true,
+          price: true,
+          "category.name": true,
+        },
+      },
+    ])
+      .skip(skip)
+      .limit(limit)
+      .collation({ locale: "en" })
+      .sort({ name: 1 })
+      .exec();
+
+    const count = await Product.find(filters).countDocuments();
     const totalPages = Math.ceil(count / limit);
 
     const productsData = {

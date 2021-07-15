@@ -11,7 +11,10 @@ class CategoriesRepository implements ICategoriesRepository {
     filters: ICategoryFilters,
     { page, limit, skip }: IPagination
   ): Promise<ISaveCategoryDocument[] | []> {
-    const categories = await Category.find().limit(limit).skip(skip).exec();
+    const categories = await Category.find(filters)
+      .skip(skip)
+      .limit(limit)
+      .exec();
     const count = await Category.find(filters).count();
     const totalPages = Math.ceil(count / limit);
 
