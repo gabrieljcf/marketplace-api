@@ -7,6 +7,7 @@ import { ICategoriesRepository } from "../../repositories/ICategoriesRepository"
 interface IRequest {
   id: string;
   name: string;
+  isActiveInHomePage: boolean;
 }
 
 @injectable()
@@ -16,11 +17,16 @@ class UpdateCategoryUseCase {
     private categoryRepository: ICategoriesRepository
   ) {}
 
-  public async execute({ id, name }: IRequest): Promise<ISaveCategoryDocument> {
+  public async execute({
+    id,
+    name,
+    isActiveInHomePage,
+  }: IRequest): Promise<ISaveCategoryDocument> {
     const nameSearch = formatSearchText(name);
     const categoryData = {
       name,
       nameSearch,
+      isActiveInHomePage,
     };
 
     const category = await this.categoryRepository.update(id, categoryData);

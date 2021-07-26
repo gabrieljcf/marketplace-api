@@ -10,12 +10,20 @@ interface ICategoriesRepository {
     pagination: IPagination
   ): Promise<ISaveCategoryDocument[] | []>;
 
-  create({ name, nameSearch }: ISaveCategoryDocument): Promise<void>;
+  findOne(id: string): Promise<ISaveCategoryDocument | []>;
+
+  create({
+    name,
+    nameSearch,
+    isActiveInHomePage,
+  }: ISaveCategoryDocument): Promise<void>;
 
   update(
     id: string,
     categoryData: ISaveCategoryDocument
   ): Promise<ISaveCategoryDocument>;
+
+  delete(categoryId: string): Promise<void>;
 }
 
 export { ICategoriesRepository };

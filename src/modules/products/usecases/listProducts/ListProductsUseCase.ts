@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
+import { mongoose } from "../../../../database";
 import { formatSearchText } from "../../../../shared/utils/formatSearchText";
 import { ISavedProductDocument } from "../../interfaces/IProducts";
 import { IProductsRepository } from "../../repositories/IProductsRepository";
@@ -8,8 +9,8 @@ interface IRequest {
   isActive?: boolean | any;
   name?: string | any;
   category?: string | any;
-  page: number;
-  limit: number;
+  page?: number;
+  limit?: number;
 }
 
 @injectable()
@@ -25,17 +26,17 @@ class ListProductsUseCase {
     category,
     page,
     limit,
-  }: IRequest): Promise<ISavedProductDocument[] | undefined> {
+  }: IRequest): Promise<ISavedProductDocument | ISavedProductDocument[] | []> {
     const nameSearch = name ? formatSearchText(name) : null;
     const filters = {
       nameSearch,
       isActive,
       category,
     };
-
     if (!isActive) delete filters.isActive;
     if (!nameSearch) delete filters.nameSearch;
     if (!category) delete filters.category;
+    if (category) filters.category = mongoose.Types.ObjectId(category);
 
     const limitPages = !isNaN(limit) ? limit * 1 : 10;
     const currentPage = page || 1;

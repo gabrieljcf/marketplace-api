@@ -6,10 +6,14 @@ import { UpdateCategoryUseCase } from "./UpdateCategoryUseCase";
 class UpdateCategoryController {
   public async handle(request: Request, response: Response): Promise<Response> {
     try {
-      const { name } = request.body;
+      const { name, isActiveInHomePage } = request.body;
       const { id } = request.params;
       const updateCategoryUseCase = container.resolve(UpdateCategoryUseCase);
-      const category = await updateCategoryUseCase.execute({ id, name });
+      const category = await updateCategoryUseCase.execute({
+        id,
+        name,
+        isActiveInHomePage,
+      });
       return response.status(200).json(category);
     } catch (error) {
       return response.status(400).json({ message: error.message });

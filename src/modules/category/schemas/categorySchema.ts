@@ -12,9 +12,11 @@ const categorySchema = new Schema({
   },
   isActive: {
     type: Boolean,
+    default: true,
   },
   isActiveInHomePage: {
     type: Boolean,
+    default: false,
   },
   createdAt: {
     type: Date,

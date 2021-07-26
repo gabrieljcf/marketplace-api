@@ -12,7 +12,7 @@ class ProductsRepository implements IProductsRepository {
   public async list(
     filters: IFilters,
     { page, limit, skip }: IPagination
-  ): Promise<ISavedProductDocument[] | []> {
+  ): Promise<ISavedProductDocument | ISavedProductDocument[] | []> {
     const products = await Product.aggregate([
       {
         $match: {

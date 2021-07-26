@@ -6,9 +6,9 @@ import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 class CreateCategoryController {
   public async handle(request: Request, response: Response): Promise<Response> {
     try {
-      const { name } = request.body;
+      const { name, isActiveInHomePage } = request.body;
       const createCategoryUseCase = container.resolve(CreateCategoryUseCase);
-      await createCategoryUseCase.execute(name);
+      await createCategoryUseCase.execute({ name, isActiveInHomePage });
       return response.status(201).send();
     } catch (error) {
       return response

@@ -15,7 +15,7 @@ class CategoriesRepository implements ICategoriesRepository {
       .skip(skip)
       .limit(limit)
       .exec();
-    const count = await Category.find(filters).count();
+    const count = await Category.find(filters).countDocuments();
     const totalPages = Math.ceil(count / limit);
 
     const categoriesData = {
@@ -27,11 +27,17 @@ class CategoriesRepository implements ICategoriesRepository {
     return categoriesData;
   }
 
+  public async findOne(categoryId: string): Promise<ISaveCategoryDocument> {
+    const category = await Category.findById(categoryId);
+    return category;
+  }
+
   public async create({
     name,
     nameSearch,
+    isActiveInHomePage,
   }: ISaveCategoryDocument): Promise<void> {
-    const category = new Category({ name, nameSearch });
+    const category = new Category({ name, nameSearch, isActiveInHomePage });
     await category.save();
   }
 
@@ -47,6 +53,10 @@ class CategoriesRepository implements ICategoriesRepository {
       { new: true }
     );
     return category;
+  }
+
+  public async delete(categoryId: string): Promise<void> {
+    await Category.deleteOne({ _id: categoryId });
   }
 }
 

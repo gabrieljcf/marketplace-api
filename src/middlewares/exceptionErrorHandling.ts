@@ -11,8 +11,6 @@ export default (
   if (error instanceof AppError) {
     return response.status(error.statusCode).json({ message: error.message });
   }
-
-  console.log("opaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
   return response
     .status(500)
     .json({ message: `Internal server Error ${error.message}` });

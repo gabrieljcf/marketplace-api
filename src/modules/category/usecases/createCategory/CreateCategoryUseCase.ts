@@ -3,6 +3,11 @@ import { inject, injectable } from "tsyringe";
 import { formatSearchText } from "../../../../shared/utils/formatSearchText";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
+interface IRequest {
+  name: string;
+  isActiveInHomePage: boolean;
+}
+
 @injectable()
 class CreateCategoryUseCase {
   constructor(
@@ -10,9 +15,9 @@ class CreateCategoryUseCase {
     private categoryRepository: ICategoriesRepository
   ) {}
 
-  public async execute(name: string): Promise<void> {
+  public async execute({ name, isActiveInHomePage }: IRequest): Promise<void> {
     const nameSearch = formatSearchText(name);
-    const categoryData = { name, nameSearch };
+    const categoryData = { name, nameSearch, isActiveInHomePage };
     await this.categoryRepository.create(categoryData);
   }
 }
