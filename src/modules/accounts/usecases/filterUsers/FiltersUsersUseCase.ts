@@ -32,7 +32,6 @@ class FiltersUsersUseCase {
       email,
       isActive,
     };
-    console.log(filters);
     if (!id) delete filters._id;
     if (!nameSearch) delete filters.nameSearch;
     if (!email) delete filters.email;
