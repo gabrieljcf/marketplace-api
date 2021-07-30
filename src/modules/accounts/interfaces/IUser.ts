@@ -1,4 +1,5 @@
 interface ISaveUserDocument {
+  _id?: string;
   name: string;
   nameSearch?: string;
   email: string;
