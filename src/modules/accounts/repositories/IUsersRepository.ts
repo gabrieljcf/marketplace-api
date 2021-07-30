@@ -1,3 +1,4 @@
+import { IFiltersUsers } from "../interfaces/IFiltersUsers";
 import { ISaveUserDocument } from "../interfaces/IUser";
 
 interface IUsersRepository {
@@ -9,9 +10,9 @@ interface IUsersRepository {
     isAdmin,
   }: ISaveUserDocument): Promise<void>;
 
-  list(): Promise<ISaveUserDocument[]>;
+  list(): Promise<ISaveUserDocument[] | []>;
 
-  findByFilters(filters): Promise<ISaveUserDocument[] | ISaveUserDocument | []>;
+  findByFilters(filters: IFiltersUsers): Promise<ISaveUserDocument[] | []>;
 }
 
 export { IUsersRepository };

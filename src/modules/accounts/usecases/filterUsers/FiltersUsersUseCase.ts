@@ -24,7 +24,7 @@ class FiltersUsersUseCase {
     id,
     email,
     isActive,
-  }: IRequest): Promise<ISaveUserDocument[] | ISaveUserDocument | []> {
+  }: IRequest): Promise<Partial<ISaveUserDocument>[] | []> {
     const nameSearch = name ? formatSearchText(name) : null;
     const filters = {
       nameSearch,
@@ -39,7 +39,15 @@ class FiltersUsersUseCase {
 
     const users = await this.usersRepository.findByFilters(filters);
 
-    return users;
+    const usersWithoutPassword = users.map((user) => ({
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      isActive: user.isActive,
+    }));
+
+    return usersWithoutPassword;
   }
 }
 

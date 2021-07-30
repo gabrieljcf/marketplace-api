@@ -23,7 +23,7 @@ class UsersRepository implements IUsersRepository {
 
   public async findByFilters(
     filters: IFiltersUsers
-  ): Promise<ISaveUserDocument[] | ISaveUserDocument | []> {
+  ): Promise<ISaveUserDocument[] | []> {
     const users = await User.find(filters);
     return users;
   }
