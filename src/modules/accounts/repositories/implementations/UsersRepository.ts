@@ -14,6 +14,11 @@ class UsersRepository implements IUsersRepository {
 
     await user.save();
   }
+
+  public async list(): Promise<ISaveUserDocument[]> {
+    const users = await User.find();
+    return users;
+  }
 }
 
 export { UsersRepository };
