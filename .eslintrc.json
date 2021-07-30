@@ -21,6 +21,7 @@
     "prettier"
   ],
   "rules": {
+    "no-underscore-dangle": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "no-restricted-globals":"off",
     "import/no-extraneous-dependencies": "off",
