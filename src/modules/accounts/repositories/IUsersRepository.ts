@@ -8,6 +8,8 @@ interface IUsersRepository {
     password,
     isAdmin,
   }: ISaveUserDocument): Promise<void>;
+
+  list(): Promise<ISaveUserDocument[]>;
 }
 
 export { IUsersRepository };
