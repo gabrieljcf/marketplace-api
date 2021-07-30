@@ -1,3 +1,4 @@
+import { IFiltersUsers } from "../../interfaces/IFiltersUsers";
 import { ISaveUserDocument } from "../../interfaces/IUser";
 import { User } from "../../models/User";
 import { IUsersRepository } from "../IUsersRepository";
@@ -17,6 +18,13 @@ class UsersRepository implements IUsersRepository {
 
   public async list(): Promise<ISaveUserDocument[]> {
     const users = await User.find({ isActive: true });
+    return users;
+  }
+
+  public async findByFilters(
+    filters: IFiltersUsers
+  ): Promise<ISaveUserDocument[] | ISaveUserDocument | []> {
+    const users = await User.find(filters);
     return users;
   }
 }

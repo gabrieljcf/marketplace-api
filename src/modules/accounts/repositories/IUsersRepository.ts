@@ -10,6 +10,8 @@ interface IUsersRepository {
   }: ISaveUserDocument): Promise<void>;
 
   list(): Promise<ISaveUserDocument[]>;
+
+  findByFilters(filters): Promise<ISaveUserDocument[] | ISaveUserDocument | []>;
 }
 
 export { IUsersRepository };
