@@ -16,7 +16,7 @@ class UsersRepository implements IUsersRepository {
   }
 
   public async list(): Promise<ISaveUserDocument[]> {
-    const users = await User.find();
+    const users = await User.find({ isActive: true });
     return users;
   }
 }
