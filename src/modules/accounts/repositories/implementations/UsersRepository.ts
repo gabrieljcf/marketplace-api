@@ -53,6 +53,10 @@ class UsersRepository implements IUsersRepository {
     const users = await User.find(filters);
     return users;
   }
+
+  public async delete(id: string): Promise<void> {
+    await User.deleteOne({ _id: id });
+  }
 }
 
 export { UsersRepository };
