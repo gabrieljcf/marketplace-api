@@ -15,6 +15,8 @@ interface IUsersRepository {
 
   findByFilters(filters: IFiltersUsers): Promise<ISaveUserDocument[] | []>;
 
+  update(id: string, userData: Partial<ISaveUserDocument>): Promise<void>;
+
   delete(id: string): Promise<void>;
 }
 

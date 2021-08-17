@@ -11,7 +11,7 @@ class DeleteUserController {
       await deleteUserUseCase.execute(userId);
       return response.status(200).send();
     } catch (error) {
-      return response.status(500).json(error.message);
+      return response.status(500).json({ message: error.message });
     }
   }
 }

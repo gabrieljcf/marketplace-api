@@ -57,6 +57,21 @@ class UsersRepository implements IUsersRepository {
   public async delete(id: string): Promise<void> {
     await User.deleteOne({ _id: id });
   }
+
+  public async update(
+    id: string,
+    userData: Partial<ISaveUserDocument>
+  ): Promise<void> {
+    const user = await User.findByIdAndUpdate(
+      id,
+      {
+        $set: userData,
+      },
+      { new: true }
+    );
+
+    console.log(user);
+  }
 }
 
 export { UsersRepository };
