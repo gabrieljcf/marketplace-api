@@ -1,6 +1,7 @@
 import { hash } from "bcrypt";
 import { inject, injectable } from "tsyringe";
 
+import { AppError } from "../../../../errors/AppError";
 import { formatSearchText } from "../../../../shared/utils/formatSearchText";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
@@ -24,6 +25,10 @@ class CreateUserUseCase {
     password,
     isAdmin,
   }: IRequestDTO): Promise<void> {
+    const emailExists = await this.usersRepository.findByFilters({ email });
+    if (emailExists.length)
+      throw new AppError("This email already exists", 409);
+
     const nameSearch = formatSearchText(name);
     const passwordHash = await hash(password, 8);
     const userData = {
