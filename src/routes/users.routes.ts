@@ -1,4 +1,4 @@
-import { response, Router } from "express";
+import { Router } from "express";
 
 import { CreateUserController } from "../modules/accounts/usecases/createUser/CreateUserController";
 import { DeleteUserController } from "../modules/accounts/usecases/deleteUser/DeleteUserController";
