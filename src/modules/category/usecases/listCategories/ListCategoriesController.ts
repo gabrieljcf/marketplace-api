@@ -5,21 +5,17 @@ import { ListCategoriesUseCase } from "./ListCategoriesUseCase";
 
 class ListCategoriesController {
   public async handle(request: Request, response: Response): Promise<Response> {
-    try {
-      const { isActive, name, page, limit } = request.query;
+    const { isActive, name, page, limit } = request.query;
 
-      const listCategoriesUseCase = container.resolve(ListCategoriesUseCase);
-      const categories = await listCategoriesUseCase.execute({
-        isActive,
-        name,
-        page: +page,
-        limit: +limit,
-      });
+    const listCategoriesUseCase = container.resolve(ListCategoriesUseCase);
+    const categories = await listCategoriesUseCase.execute({
+      isActive,
+      name,
+      page: +page,
+      limit: +limit,
+    });
 
-      return response.json(categories);
-    } catch (error) {
-      return response.status(500).json({ message: error.message });
-    }
+    return response.json(categories);
   }
 }
 
