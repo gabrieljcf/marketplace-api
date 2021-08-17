@@ -39,13 +39,15 @@ class FiltersUsersUseCase {
 
     const users = await this.usersRepository.findByFilters(filters);
 
-    const usersWithoutPassword = users.map((user) => ({
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      isActive: user.isActive,
-    }));
+    const usersWithoutPassword = users.map(
+      (user: Partial<ISaveUserDocument>) => ({
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        isActive: user.isActive,
+      })
+    );
 
     return usersWithoutPassword;
   }

@@ -14,6 +14,8 @@ class CategoriesRepository implements ICategoriesRepository {
     const categories = await Category.find(filters)
       .skip(skip)
       .limit(limit)
+      .collation({ locale: "en" })
+      .sort({ name: 1 })
       .exec();
     const count = await Category.find(filters).countDocuments();
     const totalPages = Math.ceil(count / limit);

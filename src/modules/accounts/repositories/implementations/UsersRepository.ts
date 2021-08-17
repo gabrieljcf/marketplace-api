@@ -1,3 +1,4 @@
+import { IPagination } from "../../../../shared/interfaces/IPagination";
 import { IFiltersUsers } from "../../interfaces/IFiltersUsers";
 import { ISaveUserDocument } from "../../interfaces/IUser";
 import { User } from "../../models/User";
@@ -16,9 +17,34 @@ class UsersRepository implements IUsersRepository {
     await user.save();
   }
 
-  public async list(): Promise<ISaveUserDocument[]> {
-    const users = await User.find({ isActive: true });
-    return users;
+  public async list({
+    page,
+    limit,
+    skip,
+  }: IPagination): Promise<Partial<ISaveUserDocument>[] | []> {
+    const users = await User.find({ isActive: true })
+      .skip(skip)
+      .limit(limit)
+      .collation({ locale: "en" })
+      .sort({ name: 1 })
+      .exec();
+    const count = await User.find({ isActive: true }).countDocuments();
+    const totalPages = Math.ceil(count / limit);
+
+    const usersWithoutPassword = users.map((user) => ({
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    }));
+
+    const usersData = {
+      ...usersWithoutPassword,
+      currentPage: page,
+      totalPages,
+    };
+
+    return usersData;
   }
 
   public async findByFilters(

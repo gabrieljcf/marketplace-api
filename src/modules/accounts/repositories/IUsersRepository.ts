@@ -1,3 +1,4 @@
+import { IPagination } from "../../../shared/interfaces/IPagination";
 import { IFiltersUsers } from "../interfaces/IFiltersUsers";
 import { ISaveUserDocument } from "../interfaces/IUser";
 
@@ -10,7 +11,7 @@ interface IUsersRepository {
     isAdmin,
   }: ISaveUserDocument): Promise<void>;
 
-  list(): Promise<ISaveUserDocument[] | []>;
+  list(pagination: IPagination): Promise<Partial<ISaveUserDocument>[] | []>;
 
   findByFilters(filters: IFiltersUsers): Promise<ISaveUserDocument[] | []>;
 }

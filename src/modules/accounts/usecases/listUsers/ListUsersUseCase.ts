@@ -3,6 +3,13 @@ import { inject, injectable } from "tsyringe";
 import { ISaveUserDocument } from "../../interfaces/IUser";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
+interface IRequest {
+  isActive?: boolean | any;
+  name?: string | any;
+  page?: number;
+  limit?: number;
+}
+
 @injectable()
 class ListUsersUseCase {
   constructor(
@@ -10,16 +17,21 @@ class ListUsersUseCase {
     private usersRepository: IUsersRepository
   ) {}
 
-  public async execute(): Promise<Partial<ISaveUserDocument>[] | []> {
-    const users = await this.usersRepository.list();
-    const usersWithoutPassword = users.map((user) => ({
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-    }));
+  public async execute({
+    page,
+    limit,
+  }: IRequest): Promise<Partial<ISaveUserDocument>[] | []> {
+    const limitPages = limit ? limit * 1 : 10;
+    const currentPage = page || 1;
+    const skip = limit * (page - 1);
 
-    return usersWithoutPassword;
+    const users = await this.usersRepository.list({
+      limit: limitPages,
+      page: currentPage,
+      skip,
+    });
+
+    return users;
   }
 }
 
