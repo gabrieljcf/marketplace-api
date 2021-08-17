@@ -69,8 +69,6 @@ class UsersRepository implements IUsersRepository {
       },
       { new: true }
     );
-
-    console.log(user);
   }
 }
 
