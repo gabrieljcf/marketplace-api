@@ -62,7 +62,7 @@ class UsersRepository implements IUsersRepository {
     id: string,
     userData: Partial<ISaveUserDocument>
   ): Promise<void> {
-    const user = await User.findByIdAndUpdate(
+    await User.findByIdAndUpdate(
       id,
       {
         $set: userData,
