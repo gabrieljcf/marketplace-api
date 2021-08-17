@@ -6,8 +6,9 @@ export default (
   error: Error,
   request: Request,
   response: Response,
-  next: NextFunction
-) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _next: NextFunction
+): Response => {
   if (error instanceof AppError) {
     return response.status(error.statusCode).json({ message: error.message });
   }
