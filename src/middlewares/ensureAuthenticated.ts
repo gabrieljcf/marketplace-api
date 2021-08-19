@@ -16,7 +16,7 @@ export async function ensureAuthenticated(
 ): Promise<void> {
   const authHeader = request.headers.authorization;
 
-  if (!authHeader) throw new AppError("Token missing", 404);
+  if (!authHeader) throw new AppError("Token missing", 401);
 
   const [, token] = authHeader.split(" ");
   try {
@@ -28,7 +28,12 @@ export async function ensureAuthenticated(
     const usersRepository = new UsersRepository();
     const user = await usersRepository.findByFilters({ _id: userId });
 
-    if (!user) throw new AppError("User dows not exists!", 404);
+    if (!user) throw new AppError("User dows not exists!", 401);
+
+    request.user = {
+      _id: userId,
+      isAdmin,
+    };
 
     next();
   } catch (error) {
