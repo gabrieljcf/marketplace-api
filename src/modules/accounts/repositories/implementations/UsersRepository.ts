@@ -31,15 +31,15 @@ class UsersRepository implements IUsersRepository {
     const count = await User.find({ isActive: true }).countDocuments();
     const totalPages = Math.ceil(count / limit);
 
-    const usersWithoutPassword = users.map((user) => ({
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-    }));
+    // const usersWithoutPassword = users.map((user) => ({
+    //   id: user._id,
+    //   name: user.name,
+    //   email: user.email,
+    //   isAdmin: user.isAdmin,
+    // }));
 
     const usersData = {
-      ...usersWithoutPassword,
+      ...users,
       currentPage: page,
       totalPages,
     };
@@ -52,6 +52,11 @@ class UsersRepository implements IUsersRepository {
   ): Promise<ISaveUserDocument[] | []> {
     const users = await User.find(filters);
     return users;
+  }
+
+  public async findByemail(email: string): Promise<ISaveUserDocument> {
+    const user = await User.findOne({ email });
+    return user;
   }
 
   public async delete(id: string): Promise<void> {
