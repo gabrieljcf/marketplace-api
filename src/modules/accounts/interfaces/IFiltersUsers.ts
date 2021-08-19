@@ -1,6 +1,6 @@
 interface IFiltersUsers {
   nameSearch?: string;
-  id?: string;
+  _id?: string;
   isActive?: boolean;
   email?: string;
 }

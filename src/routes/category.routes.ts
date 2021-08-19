@@ -1,5 +1,6 @@
 import { Router } from "express";
 
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { CreateCategoryController } from "../modules/category/usecases/createCategory/CreateCategoryController";
 import { DeleteCategoryController } from "../modules/category/usecases/deleteCategory/DeleteCategoryController";
 import { ListCategoriesController } from "../modules/category/usecases/listCategories/ListCategoriesController";
@@ -13,8 +14,16 @@ const updateCategoryController = new UpdateCategoryController();
 const deleteCategoryController = new DeleteCategoryController();
 
 categoryRouter.get("/", listCategoriesController.handle);
-categoryRouter.post("/", createCategoryController.handle);
-categoryRouter.put("/:id", updateCategoryController.handle);
-categoryRouter.delete("/:categoryId", deleteCategoryController.handle);
+categoryRouter.post("/", ensureAuthenticated, createCategoryController.handle);
+categoryRouter.put(
+  "/:id",
+  ensureAuthenticated,
+  updateCategoryController.handle
+);
+categoryRouter.delete(
+  "/:categoryId",
+  ensureAuthenticated,
+  deleteCategoryController.handle
+);
 
 export { categoryRouter };

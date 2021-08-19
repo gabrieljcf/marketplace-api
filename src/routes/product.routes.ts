@@ -1,6 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
 
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { CreateProductsController } from "../modules/products/usecases/createProducts/CreateProductsController";
 import { DeleteProductController } from "../modules/products/usecases/deleteProducts/DeleteProductController";
 import { ImportProductsController } from "../modules/products/usecases/importProducts/ImportProductsController";
@@ -25,14 +26,23 @@ const updateManyProductsController = new UpdateManyProductsController();
 
 productRoutes.get("/", listProductsController.handle);
 productRoutes.get("/:id", listProductController.handle);
-productRoutes.post("/", createProductsController.handle);
+productRoutes.post("/", ensureAuthenticated, createProductsController.handle);
 productRoutes.post(
   "/import",
   upload.single("file"),
+  ensureAuthenticated,
   importProductsController.handle
 );
-productRoutes.put("/:id", updateProductsController.handle);
-productRoutes.delete("/:id", deleteProductController.handle);
-productRoutes.patch("/many", updateManyProductsController.handle);
+productRoutes.put("/:id", ensureAuthenticated, updateProductsController.handle);
+productRoutes.delete(
+  "/:id",
+  ensureAuthenticated,
+  deleteProductController.handle
+);
+productRoutes.patch(
+  "/many",
+  ensureAuthenticated,
+  updateManyProductsController.handle
+);
 
 export { productRoutes };
