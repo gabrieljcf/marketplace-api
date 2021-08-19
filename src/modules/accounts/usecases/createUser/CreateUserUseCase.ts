@@ -25,7 +25,7 @@ class CreateUserUseCase {
     password,
     isAdmin,
   }: IRequestDTO): Promise<void> {
-    const emailExists = await this.usersRepository.findByemail(email);
+    const emailExists = await this.usersRepository.findByEmail(email);
     if (!emailExists) throw new AppError("This email already exists", 409);
 
     const nameSearch = formatSearchText(name);

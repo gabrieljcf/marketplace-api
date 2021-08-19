@@ -21,22 +21,26 @@ class UsersRepository implements IUsersRepository {
     page,
     limit,
     skip,
-  }: IPagination): Promise<Partial<ISaveUserDocument>[] | []> {
-    const users = await User.find({ isActive: true })
+  }: IPagination): Promise<ISaveUserDocument[] | []> {
+    const usersReturnedData = {
+      _id: true,
+      name: true,
+      email: true,
+      isActive: true,
+      isAdmin: true,
+      createdAt: true,
+      updatedAt: true,
+    };
+
+    const users = await User.find({ isActive: true }, usersReturnedData)
       .skip(skip)
       .limit(limit)
       .collation({ locale: "en" })
       .sort({ name: 1 })
       .exec();
+
     const count = await User.find({ isActive: true }).countDocuments();
     const totalPages = Math.ceil(count / limit);
-
-    // const usersWithoutPassword = users.map((user) => ({
-    //   id: user._id,
-    //   name: user.name,
-    //   email: user.email,
-    //   isAdmin: user.isAdmin,
-    // }));
 
     const usersData = {
       ...users,
@@ -50,11 +54,21 @@ class UsersRepository implements IUsersRepository {
   public async findByFilters(
     filters: IFiltersUsers
   ): Promise<ISaveUserDocument | ISaveUserDocument[] | []> {
-    const users = await User.find(filters);
+    const usersReturnedData = {
+      _id: true,
+      name: true,
+      email: true,
+      isActive: true,
+      isAdmin: true,
+      createdAt: true,
+      updatedAt: true,
+    };
+
+    const users = await User.find(filters, usersReturnedData);
     return users;
   }
 
-  public async findByemail(email: string): Promise<ISaveUserDocument> {
+  public async findByEmail(email: string): Promise<ISaveUserDocument> {
     const user = await User.findOne({ email });
     return user;
   }

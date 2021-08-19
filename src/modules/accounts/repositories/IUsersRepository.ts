@@ -11,13 +11,13 @@ interface IUsersRepository {
     isAdmin,
   }: ISaveUserDocument): Promise<void>;
 
-  list(pagination: IPagination): Promise<Partial<ISaveUserDocument>[] | []>;
+  list(pagination: IPagination): Promise<ISaveUserDocument[] | []>;
 
   findByFilters(
     filters: IFiltersUsers
   ): Promise<ISaveUserDocument | ISaveUserDocument[] | []>;
 
-  findByemail(email: string): Promise<ISaveUserDocument>;
+  findByEmail(email: string): Promise<ISaveUserDocument>;
 
   update(id: string, userData: Partial<ISaveUserDocument>): Promise<void>;
 
