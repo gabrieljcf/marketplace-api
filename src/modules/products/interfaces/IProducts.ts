@@ -2,7 +2,7 @@ interface ISavedProductDocument {
   id?: string;
   name: string;
   price: number;
-  category?: string;
+  category?: string[];
   images?: string[];
   nameSearch?: string;
   isActive?: boolean;
@@ -16,7 +16,7 @@ interface IUpdateProductDocument {
   id?: string;
   name?: string;
   price?: number;
-  category?: string;
+  category?: string[];
   images?: string[];
   nameSearch?: string;
   isActive?: boolean;

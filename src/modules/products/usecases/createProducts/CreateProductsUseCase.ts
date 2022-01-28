@@ -15,10 +15,19 @@ class CreateProductsUseCase {
     name,
     price,
     category,
+    description,
+    images,
   }: ICreateProductDTO): Promise<void> {
     const nameSearch = formatSearchText(name);
 
-    const productData = { name, price, category, nameSearch };
+    const productData = {
+      name,
+      price,
+      category,
+      nameSearch,
+      description,
+      images,
+    };
     await this.productRepository.create(productData);
   }
 }

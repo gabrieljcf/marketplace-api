@@ -14,10 +14,12 @@ class UpdateManyProductsUseCase {
     productsIds: string[],
     categoryId: string
   ): Promise<IUpdateProductDocument[]> {
-    const data = { category: categoryId };
     const products = await Promise.all(
       productsIds.map(async (id) => {
-        const product = await this.productsRepository.update(id, data);
+        const product = await this.productsRepository.updateMany(
+          id,
+          categoryId
+        );
         return product;
       })
     );

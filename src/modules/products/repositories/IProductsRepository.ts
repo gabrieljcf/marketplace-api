@@ -21,6 +21,11 @@ interface IProductsRepository {
     productData: IUpdateProductDocument | string
   ): Promise<IUpdateProductDocument>;
 
+  updateMany(
+    id: string,
+    productData: IUpdateProductDocument | string
+  ): Promise<IUpdateProductDocument>;
+
   delete(id: string): Promise<void>;
 }
 
