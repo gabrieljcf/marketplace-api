@@ -12,7 +12,7 @@ class ProductsRepository implements IProductsRepository {
   public async list(
     filters: IFilters,
     { page, limit, skip }: IPagination
-  ): Promise<ISavedProductDocument | ISavedProductDocument[] | []> {
+  ): Promise<any> {
     const products = await Product.aggregate([
       {
         $match: {
@@ -20,34 +20,24 @@ class ProductsRepository implements IProductsRepository {
         },
       },
       {
-        $lookup: {
-          from: "categories",
-          localField: "category",
-          foreignField: "_id",
-          as: "category",
-        },
-      },
-      { $unwind: { path: "$category", preserveNullAndEmptyArrays: true } },
-      {
         $project: {
           name: true,
           images: true,
           price: true,
-          "category.name": true,
         },
       },
+      { $sort: { name: 1 } },
     ])
       .skip(skip)
       .limit(limit)
       .collation({ locale: "en" })
-      .sort({ name: 1 })
       .exec();
 
     const count = await Product.find(filters).countDocuments();
     const totalPages = Math.ceil(count / limit);
 
     const productsData = {
-      ...products,
+      products: [...products],
       currentPage: page,
       totalPages,
     };
@@ -76,6 +66,18 @@ class ProductsRepository implements IProductsRepository {
       {
         $set: productData,
       },
+      { new: true }
+    );
+    return product;
+  }
+
+  public async updateMany(
+    id: string,
+    category: IUpdateProductDocument
+  ): Promise<IUpdateProductDocument> {
+    const product = await Product.findOneAndUpdate(
+      { _id: id },
+      { $push: { category: { $each: category } } },
       { new: true }
     );
     return product;
