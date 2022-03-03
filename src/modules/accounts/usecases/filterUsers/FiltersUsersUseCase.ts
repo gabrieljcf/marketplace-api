@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 import { inject, injectable } from "tsyringe";
 
-import { formatSearchText } from "../../../../shared/utils/formatSearchText";
+import { formatText } from "../../../../shared/utils/formatSearchText";
 import { ISaveUserDocument } from "../../interfaces/IUser";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
@@ -25,7 +25,7 @@ class FiltersUsersUseCase {
     email,
     isActive,
   }: IRequest): Promise<Partial<ISaveUserDocument>[] | []> {
-    const nameSearch = name ? formatSearchText(name) : null;
+    const nameSearch = name ? formatText(name) : null;
     const filters = {
       nameSearch,
       _id: Types.ObjectId(id),

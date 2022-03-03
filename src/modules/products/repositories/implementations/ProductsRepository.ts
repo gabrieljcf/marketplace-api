@@ -2,6 +2,7 @@ import { IPagination } from "../../../../shared/interfaces/IPagination";
 import { ICreateProductDTO } from "../../interfaces/ICreateProductDTO";
 import { IFilters } from "../../interfaces/IFilters";
 import {
+  IProductsResponse,
   ISavedProductDocument,
   IUpdateProductDocument,
 } from "../../interfaces/IProducts";
@@ -12,7 +13,7 @@ class ProductsRepository implements IProductsRepository {
   public async list(
     filters: IFilters,
     { page, limit, skip }: IPagination
-  ): Promise<any> {
+  ): Promise<IProductsResponse> {
     const products = await Product.aggregate([
       {
         $match: {

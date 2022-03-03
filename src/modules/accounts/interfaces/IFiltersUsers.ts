@@ -1,6 +1,8 @@
+import { Types } from "mongoose";
+
 interface IFiltersUsers {
-  nameSearch?: string;
-  _id?: string;
+  nameSearch?: RegExp;
+  _id?: Types.ObjectId;
   isActive?: boolean;
   email?: string;
 }

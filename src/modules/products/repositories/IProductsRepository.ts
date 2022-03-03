@@ -2,15 +2,13 @@ import { IPagination } from "../../../shared/interfaces/IPagination";
 import { ICreateProductDTO } from "../interfaces/ICreateProductDTO";
 import { IFilters } from "../interfaces/IFilters";
 import {
+  IProductsResponse,
   ISavedProductDocument,
   IUpdateProductDocument,
 } from "../interfaces/IProducts";
 
 interface IProductsRepository {
-  list(
-    filters: IFilters,
-    pagination: IPagination
-  ): Promise<ISavedProductDocument | ISavedProductDocument[] | []>;
+  list(filters: IFilters, pagination: IPagination): Promise<IProductsResponse>;
 
   findById(id: string): Promise<ISavedProductDocument | undefined>;
 

@@ -15,7 +15,7 @@ interface IUsersRepository {
 
   findByFilters(
     filters: IFiltersUsers
-  ): Promise<ISaveUserDocument | ISaveUserDocument[] | []>;
+  ): Promise<ISaveUserDocument[] | ISaveUserDocument[] | []>;
 
   findByEmail(email: string): Promise<ISaveUserDocument>;
 

@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { formatSearchText } from "../../../../shared/utils/formatSearchText";
+import { formatText } from "../../../../shared/utils/formatSearchText";
 import { ISaveCategoryDocument } from "../../interfaces/ICategory";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
@@ -24,7 +24,7 @@ class ListCategoriesUseCase {
     page,
     limit,
   }: IRequest): Promise<ISaveCategoryDocument[] | undefined> {
-    const nameSearch = name ? formatSearchText(name) : null;
+    const nameSearch = name ? formatText(name) : null;
     const filters = {
       nameSearch,
       isActive,

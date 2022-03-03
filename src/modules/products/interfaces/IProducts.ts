@@ -8,6 +8,10 @@ interface ISavedProductDocument {
   isActive?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+interface IProductsResponse {
+  products: Partial<ISavedProductDocument>[];
   currentPage: number;
   totalPages: number;
 }
@@ -24,4 +28,4 @@ interface IUpdateProductDocument {
   updatedAt?: Date;
 }
 
-export { ISavedProductDocument, IUpdateProductDocument };
+export { ISavedProductDocument, IUpdateProductDocument, IProductsResponse };
