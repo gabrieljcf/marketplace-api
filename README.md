@@ -43,7 +43,7 @@ Marketplace API for creating products, categories and users
 :heavy_check_mark: Categories CRUD;\
 :heavy_check_mark: Users Crud;\
 :heavy_check_mark: Authentication with JWT;\
-:heavy_check_mark: Import csv to create new products;\
+:heavy_check_mark: Import csv to create new products;
 
 ## :rocket: Technologies ##
 
