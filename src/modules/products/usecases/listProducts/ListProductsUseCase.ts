@@ -2,7 +2,7 @@ import { inject, injectable } from "tsyringe";
 
 import { mongoose } from "../../../../database";
 import { formatText } from "../../../../shared/utils/formatSearchText";
-import { ISavedProductDocument } from "../../interfaces/IProducts";
+import { IProductsResponse } from "../../interfaces/IProducts";
 import { IProductsRepository } from "../../repositories/IProductsRepository";
 
 interface IRequest {
@@ -26,7 +26,7 @@ class ListProductsUseCase {
     category,
     page,
     limit,
-  }: IRequest): Promise<ISavedProductDocument | ISavedProductDocument[] | []> {
+  }: IRequest): Promise<IProductsResponse | []> {
     const nameSearch = name ? formatText(name) : null;
     const filters = {
       nameSearch,

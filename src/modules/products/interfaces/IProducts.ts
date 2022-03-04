@@ -16,6 +16,12 @@ interface IProductsResponse {
   totalPages: number;
 }
 
+interface IDeleteProductDocument {
+  products: Partial<ISavedProductDocument>;
+  currentPage: number;
+  totalPages: number;
+}
+
 interface IUpdateProductDocument {
   id?: string;
   name?: string;
@@ -28,4 +34,9 @@ interface IUpdateProductDocument {
   updatedAt?: Date;
 }
 
-export { ISavedProductDocument, IUpdateProductDocument, IProductsResponse };
+export {
+  ISavedProductDocument,
+  IUpdateProductDocument,
+  IProductsResponse,
+  IDeleteProductDocument,
+};
