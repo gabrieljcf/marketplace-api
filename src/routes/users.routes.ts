@@ -18,11 +18,7 @@ const updateUserController = new UpdateUserController();
 usersRoutes.post("/", ensureAuthenticated, createUserController.handle);
 usersRoutes.get("/", listUsersController.handle);
 usersRoutes.get("/filter", filtersUsersController.handle);
-usersRoutes.put("/:userId", ensureAuthenticated, updateUserController.handle);
-usersRoutes.delete(
-  "/:userId",
-  ensureAuthenticated,
-  deleteUserController.handle
-);
+usersRoutes.put("/:id", ensureAuthenticated, updateUserController.handle);
+usersRoutes.delete("/:id", ensureAuthenticated, deleteUserController.handle);
 
 export { usersRoutes };

@@ -21,7 +21,7 @@ categoryRouter.put(
   updateCategoryController.handle
 );
 categoryRouter.delete(
-  "/:categoryId",
+  "/:id",
   ensureAuthenticated,
   deleteCategoryController.handle
 );

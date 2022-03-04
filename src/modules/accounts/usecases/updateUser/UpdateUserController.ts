@@ -5,7 +5,7 @@ import { UpdateUserUseCase } from "./UpdateUserUseCase";
 
 class UpdateUserController {
   public async handle(request: Request, response: Response): Promise<Response> {
-    const { userId } = request.params;
+    const { id } = request.params;
     const { name, isAdmin, isActive } = request.body;
     const { user } = request;
 
@@ -17,7 +17,7 @@ class UpdateUserController {
     };
 
     const loggedUser = user;
-    await updateUserUseCase.execute(userId, userData, loggedUser);
+    await updateUserUseCase.execute(id, userData, loggedUser);
     return response.status(200).send();
   }
 }
