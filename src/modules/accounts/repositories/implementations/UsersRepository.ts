@@ -53,7 +53,7 @@ class UsersRepository implements IUsersRepository {
 
   public async findByFilters(
     filters: IFiltersUsers
-  ): Promise<ISaveUserDocument | ISaveUserDocument[] | []> {
+  ): Promise<ISaveUserDocument[] | []> {
     const usersReturnedData = {
       _id: true,
       name: true,
@@ -64,7 +64,7 @@ class UsersRepository implements IUsersRepository {
       updatedAt: true,
     };
 
-    const users = await User.find(filters, usersReturnedData);
+    const users = await User.find({ filters }, usersReturnedData);
     return users;
   }
 
