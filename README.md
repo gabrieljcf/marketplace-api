@@ -62,7 +62,7 @@ Before starting :checkered_flag:, you need to have [Git](https://git-scm.com), [
 
 ```bash
 # Clone this project
-$ git clone https://github.com/{{YOUR_GITHUB_USERNAME}}/create-products
+$ git clone https://github.com/gabrieljcf/marketplace-api
 
 # Access
 $ cd marketplace-api
