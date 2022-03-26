@@ -1,38 +1,24 @@
-import { IPagination } from "../../../../shared/interfaces/IPagination";
 import {
   ICategoryFilters,
   ISaveCategoryDocument,
-  IResponseCategories,
 } from "../../interfaces/ICategory";
 import { Category } from "../../models/Category";
 import { ICategoriesRepository } from "../ICategoriesRepository";
 
 class CategoriesRepository implements ICategoriesRepository {
   public async list(
-    filters: ICategoryFilters,
-    { page, limit, skip }: IPagination
-  ): Promise<IResponseCategories> {
+    filters: ICategoryFilters
+  ): Promise<ISaveCategoryDocument[] | []> {
     const categories = await Category.find(filters, {
       id: true,
       name: true,
       nameSearch: true,
     })
-      .skip(skip)
-      .limit(limit)
       .collation({ locale: "en" })
       .sort({ name: 1 })
       .exec();
 
-    const count = await Category.find(filters).countDocuments();
-    const totalPages = Math.ceil(count / limit);
-
-    const categoriesData = {
-      categories: [...categories],
-      currentPage: page,
-      totalPages,
-    };
-
-    return categoriesData;
+    return categories;
   }
 
   public async findOne(categoryId: string): Promise<ISaveCategoryDocument> {

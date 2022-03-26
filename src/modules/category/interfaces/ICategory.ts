@@ -12,8 +12,6 @@ interface ISaveCategoryDocument {
 
 interface IResponseCategories {
   categories: (ISaveCategoryDocument & Document<any, any>)[];
-  currentPage: number;
-  totalPages: number;
 }
 
 interface ICategoryFilters {

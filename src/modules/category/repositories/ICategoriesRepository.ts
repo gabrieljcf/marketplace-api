@@ -2,14 +2,13 @@ import { IPagination } from "../../../shared/interfaces/IPagination";
 import {
   ICategoryFilters,
   ISaveCategoryDocument,
-  IResponseCategories,
 } from "../interfaces/ICategory";
 
 interface ICategoriesRepository {
   list(
     filters: ICategoryFilters,
     pagination: IPagination
-  ): Promise<IResponseCategories>;
+  ): Promise<ISaveCategoryDocument[] | []>;
 
   findOne(id: string): Promise<ISaveCategoryDocument | []>;
 
