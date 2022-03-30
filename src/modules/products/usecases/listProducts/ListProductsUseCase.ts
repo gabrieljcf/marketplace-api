@@ -40,7 +40,7 @@ class ListProductsUseCase {
 
     const limitPages = !isNaN(limit) ? limit * 1 : 10;
     const currentPage = page || 1;
-    const skip = (page - 1) * limitPages;
+    const skip = ((page || 1) - 1) * limitPages;
 
     const products = await this.productRepository.list(filters, {
       page: currentPage,
