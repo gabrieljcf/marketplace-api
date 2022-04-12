@@ -6,6 +6,7 @@ const productSchema = new Schema({
   name: {
     type: String,
     required: true,
+    index: true
   },
   price: {
     type: Number,
@@ -25,10 +26,12 @@ const productSchema = new Schema({
   ],
   nameSearch: {
     type: String,
+    index: true
   },
   isActive: {
     type: Boolean,
     default: true,
+    index: true
   },
   description: {
     type: String,

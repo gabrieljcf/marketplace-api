@@ -6,16 +6,19 @@ const userSchema = new Schema({
   name: {
     type: String,
     required: true,
+    index: true
   },
 
   nameSearch: {
     type: String,
+    index: true
   },
 
   email: {
     type: String,
     required: true,
     unique: true,
+    index: true
   },
 
   password: {

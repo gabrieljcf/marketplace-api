@@ -9,10 +9,12 @@ const categorySchema = new Schema({
   },
   nameSearch: {
     type: String,
+    index: true
   },
   isActive: {
     type: Boolean,
     default: true,
+    index: true
   },
   isActiveInHomePage: {
     type: Boolean,
