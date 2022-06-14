@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import "dotenv/config";
 
-mongoose.connect("mongodb+srv://marketplace-api:ZUtx5ZeREVrPFRBc@cluster0.xrpnf.mongodb.net/marketplace?retryWrites=true&w=majority", {
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
