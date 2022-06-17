@@ -16,11 +16,12 @@ class UpdateProductsUseCase {
     const productExists = await this.repository.findById(id);
     if (!productExists) throw new AppError("Product not found", 404);
 
-    const nameSearch = formatSearchText(data.name);
-    const productData = {
-      ...data,
-      nameSearch,
-    };
+    const productData = data?.name
+      ? {
+          ...data,
+          nameSearch: formatSearchText(data.name),
+        }
+      : data;
 
     await this.repository.update(id, productData);
   }
