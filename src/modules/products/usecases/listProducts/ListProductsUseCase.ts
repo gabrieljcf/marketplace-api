@@ -26,7 +26,7 @@ class ListProductsUseCase {
     category,
     page,
     limit,
-  }: IRequest): Promise<IProductsResponse | []> {
+  }: IRequest): Promise<IProductsResponse> {
     const nameSearch = name ? formatText(name) : null;
     const filters = {
       nameSearch,
