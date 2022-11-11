@@ -1,7 +1,7 @@
 import "reflect-metadata";
-import { AppError } from "../../../../errors/AppError";
-import { CategoryRepositoryInMemory } from "../../repositories/inMemory/CategoryRepositoryInMemory";
-import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
+import { AppError } from "../../errors/AppError";
+import { CategoryRepositoryInMemory } from "../../modules/category/repositories/inMemory/CategoryRepositoryInMemory";
+import { CreateCategoryUseCase } from "../../modules/category/usecases/createCategory/CreateCategoryUseCase";
 
 let createCategoryUseCase: CreateCategoryUseCase;
 let categoriesRepositoryInMemory: CategoryRepositoryInMemory;
