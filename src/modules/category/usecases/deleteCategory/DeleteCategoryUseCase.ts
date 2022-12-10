@@ -13,6 +13,11 @@ class DeleteCategoryUseCase {
   ) {}
 
   public async execute(categoryId: string): Promise<void | Error> {
+    const categoryExists = await this.categoriesRepository.findOne(categoryId);
+
+    if (!categoryExists)
+      throw new AppError("Categoria não encontrada, verifique!", 404);
+
     const productUseCase = container.resolve(ListProductsUseCase);
 
     const productWithCategory = (await productUseCase.execute({
@@ -24,11 +29,6 @@ class DeleteCategoryUseCase {
         "Existe produtos associados a essa categoria, por favor exclua o produto antes",
         400
       );
-
-    const categoryExists = await this.categoriesRepository.findOne(categoryId);
-
-    if (!categoryExists)
-      throw new AppError("Categoria não encontrada, verifique!", 404);
 
     await this.categoriesRepository.delete(categoryId);
   }

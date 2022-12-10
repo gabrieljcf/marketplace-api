@@ -5,8 +5,8 @@ import { ISaveCategoryDocument } from "../../interfaces/ICategory";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 interface IRequest {
-  isActive?: boolean | any;
-  name?: string | any;
+  isActive?: boolean;
+  name?: string;
   page?: number;
   limit?: number;
 }
