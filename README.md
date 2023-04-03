@@ -75,6 +75,8 @@ $ yarn dev
 
 # The server will initialize in the <http://localhost:3000>
 ```
+# :sparkles: Link for API
+  - <a href="https://marketplace-api-aa4s.onrender.com/products" target="_blank">api/products</a>
 
 ## :memo: License ##
 
