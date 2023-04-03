@@ -13,4 +13,6 @@ app.use(cors());
 app.use(routes);
 app.use(exceptionErrorHandling);
 
-app.listen(3333, () => console.log("Server start on PORT 3333"));
+const PORT = process.env.PORT ? Number(process.env.PORT) : 3333;
+
+app.listen(PORT, () => console.log("Server start on PORT 3333"));
